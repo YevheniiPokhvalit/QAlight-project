@@ -1,1 +1,0 @@
-# QAlight-project
