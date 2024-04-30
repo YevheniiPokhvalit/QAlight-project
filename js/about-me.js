@@ -21,15 +21,7 @@ accBtn3.addEventListener('click', ()=>{
   accBtn3.classList.toggle('active-btn')
 });
 
-// function open() {
-//   accBtn.classList.toggle('active-btn')
-// }
-// accBtn.addEventListener("click", open);
-
-
-
-
-new Swiper('.swiper-container', {
+const swiperContainer = new Swiper('.swiper-container', {
   navigation: {
     nextEl: '.button-next',
   },

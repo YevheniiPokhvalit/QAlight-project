@@ -1,7 +1,7 @@
 'use strict';
 import * as basicLightbox from 'basiclightbox';
 import 'basiclightbox/dist/basicLightbox.min.css';
-import axios from 'axios';
+
 import iziToast from 'izitoast';
 import 'izitoast/dist/css/iziToast.min.css';
 import xIcon from '../images/icons/sprite.svg'
