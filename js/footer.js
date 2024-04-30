@@ -1,7 +1,7 @@
 'use strict';
 import * as basicLightbox from 'basiclightbox';
 import 'basiclightbox/dist/basicLightbox.min.css';
-
+import axios from 'axios';
 import iziToast from 'izitoast';
 import 'izitoast/dist/css/iziToast.min.css';
 import xIcon from '../images/icons/sprite.svg'
@@ -36,7 +36,7 @@ function onSliceText() {
 
   if (inputCommit.value.length >= maxInputNumber) {
     return (inputCommit.value =
-      inputCommit.value.slice(0, maxInputNumber - 3) + '...');
+        inputCommit.value.slice(0, maxInputNumber - 3) + '...');
   }
 }
 
@@ -82,46 +82,46 @@ function onSubmitForm(e) {
   };
 
   postAPi(formData)
-    .then(data => {
-      const { message, title } = data;
-      const instance = basicLightbox.create(
-        `<div class="footer-modal"><h2 class="footer-title-modal">${title}</h2><p class="footer-text-modal">${message}</p><button class="footer-button-modal js-closeModal"><svg width="11" height="11" class="close-button-svg"><use href="${xIcon}#icon-close-x"></use></svg></button></div>`
-      );
-      instance.show();
+      .then(data => {
+        const { message, title } = data;
+        const instance = basicLightbox.create(
+            `<div class="footer-modal"><h2 class="footer-title-modal">${title}</h2><p class="footer-text-modal">${message}</p><button class="footer-button-modal js-closeModal"><svg width="11" height="11" class="close-button-svg"><use href="${xIcon}#icon-close-x"></use></svg></button></div>`
+        );
+        instance.show();
 
-      statusBtn();
-      document.body.classList.add('modal-open');
+        statusBtn();
+        document.body.classList.add('modal-open');
 
-      inputEmail.style.borderBottom = '1px solid rgba(250, 250, 250, 0.2)';
+        inputEmail.style.borderBottom = '1px solid rgba(250, 250, 250, 0.2)';
 
-      const closeModalButton = instance
-        .element()
-        .querySelector('.js-closeModal');
-      closeModalButton.addEventListener('click', () => {
-        instance.close();
-        closeModal();
-      });
-
-      document.addEventListener('keyup', event => {
-        if (event.key === 'Escape') {
+        const closeModalButton = instance
+            .element()
+            .querySelector('.js-closeModal');
+        closeModalButton.addEventListener('click', () => {
           instance.close();
           closeModal();
-        }
-      });
+        });
 
-      instance.element().addEventListener('click', event => {
-        if (event.target === instance.element()) {
-          instance.close();
-          closeModal();
-        }
+        document.addEventListener('keyup', event => {
+          if (event.key === 'Escape') {
+            instance.close();
+            closeModal();
+          }
+        });
+
+        instance.element().addEventListener('click', event => {
+          if (event.target === instance.element()) {
+            instance.close();
+            closeModal();
+          }
+        });
+      })
+      .catch(errorSearch)
+      .finally(() => {
+        formFeedback.reset();
+        localStorage.removeItem(localStorageKey);
+        footerBtn.disabled = true;
       });
-    })
-    .catch(errorSearch)
-    .finally(() => {
-      formFeedback.reset();
-      localStorage.removeItem(localStorageKey);
-      footerBtn.disabled = true;
-    });
 }
 
 function statusBtn() {
